@@ -1,0 +1,67 @@
+{
+    "name": "opensynergic/themes-manager",
+    "description": "Filament themes manager",
+    "keywords": ["opensynergic", "laravel", "themes-manager"],
+    "homepage": "https://github.com/opensynergic/themes-manager",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rahman Ramsi",
+            "email": "rahmanramsi19@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "filament/filament": "^2.0",
+        "spatie/laravel-package-tools": "^1.9.2",
+        "illuminate/contracts": "^8.0|^9.0",
+        "opensynergic/hooks": "^0.1.1",
+        "spatie/valuestore": "^1.3",
+        "zanysoft/laravel-zip": "^2.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "nunomaduro/collision": "^6.0",
+        "orchestra/testbench": "^7.0",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpunit/phpunit": "^9.5",
+        "spatie/laravel-ray": "^1.26"
+    },
+    "autoload": {
+        "files": [
+            "helpers/helper.php"
+        ],
+        "psr-4": {
+            "OpenSynergic\\ThemesManager\\": "src",
+            "OpenSynergic\\ThemesManager\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OpenSynergic\\ThemesManager\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OpenSynergic\\ThemesManager\\ThemesManagerServiceProvider"
+            ],
+            "aliases": {
+                "Themes": "OpenSynergic\\ThemesManager\\Facades\\Themes"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

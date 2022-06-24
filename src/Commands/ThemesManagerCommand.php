@@ -1,0 +1,19 @@
+<?php
+
+namespace OpenSynergic\ThemesManager\Commands;
+
+use Illuminate\Console\Command;
+
+class ThemesManagerCommand extends Command
+{
+    public $signature = 'themes-manager';
+
+    public $description = 'My command';
+
+    public function handle(): int
+    {
+        $this->comment('All done');
+
+        return self::SUCCESS;
+    }
+}

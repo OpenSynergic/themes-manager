@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "npx tailwindcss -o ./dist/app.css --minify",
+    "watch": "npx tailwindcss -o ./dist/app.css -w"
+  }
+}
