@@ -1,7 +1,11 @@
 {
     "name": "opensynergic/themes-manager",
     "description": "Filament themes manager",
-    "keywords": ["opensynergic", "laravel", "themes-manager"],
+    "keywords": [
+        "opensynergic",
+        "laravel",
+        "themes-manager"
+    ],
     "homepage": "https://github.com/opensynergic/themes-manager",
     "license": "MIT",
     "authors": [
@@ -16,7 +20,7 @@
         "filament/filament": "^2.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "illuminate/contracts": "^8.0|^9.0",
-        "opensynergic/hooks": "^0.1.2",
+        "opensynergic/hooks": "self.version",
         "spatie/valuestore": "^1.3",
         "zanysoft/laravel-zip": "^2.0"
     },
@@ -37,7 +41,6 @@
             "OpenSynergic\\ThemesManager\\": "src"
         }
     },
-    "autoload-dev": [],
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
