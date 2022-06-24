@@ -16,7 +16,7 @@
         "filament/filament": "^2.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "illuminate/contracts": "^8.0|^9.0",
-        "opensynergic/hooks": "^0.1.1",
+        "opensynergic/hooks": "^0.1.2",
         "spatie/valuestore": "^1.3",
         "zanysoft/laravel-zip": "^2.0"
     },
@@ -34,15 +34,10 @@
             "helpers/helper.php"
         ],
         "psr-4": {
-            "OpenSynergic\\ThemesManager\\": "src",
-            "OpenSynergic\\ThemesManager\\Database\\Factories\\": "database/factories"
+            "OpenSynergic\\ThemesManager\\": "src"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "OpenSynergic\\ThemesManager\\Tests\\": "tests"
-        }
-    },
+    "autoload-dev": [],
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
