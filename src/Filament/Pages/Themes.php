@@ -53,7 +53,7 @@ class Themes extends Page implements HasForms
     $this->form->fill(FacadesThemes::get($this->option)->getOptionsFillForm());
   }
 
-  protected function getActions(): array | View | null
+  protected function getActions(): array
   {
     return [
       Action::make('back')
