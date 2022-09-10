@@ -4,27 +4,18 @@ return [
 
   /*
     |--------------------------------------------------------------------------
-    | Path to where the themes located
+    | Directory to where the themes located
     |--------------------------------------------------------------------------
     |
     | The root path contains themes collections.
     */
-  'path' => base_path(env('THEMES_DIR', 'themes')),
-
-
-  /*
-    |--------------------------------------------------------------------------
-    | Auto register themes-manager pages
-    |--------------------------------------------------------------------------
-    */
-  'register_pages' => true,
-
+  'dir' => env('THEMES_DIR', 'themes'),
 
   /*
     |--------------------------------------------------------------------------
-    | Active theme assets path
+    | Theme public assets path
     |--------------------------------------------------------------------------
     */
 
-  'assets_path' => env('THEMES_ASSETS_PATH', 'themes'),
+  'asset_path' => env('THEMES_ASSET_PATH', 'themes'),
 ];

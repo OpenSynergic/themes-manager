@@ -63,6 +63,11 @@ trait HasJson
         return $this->get('name');
     }
 
+    public function getDescription()
+    {
+        return $this->get('description');
+    }
+
     public function getAuthor()
     {
         return $this->get('author');

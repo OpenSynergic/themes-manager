@@ -6,11 +6,9 @@ use Spatie\Valuestore\Valuestore;
 
 class ThemesManagerSettings extends Valuestore
 {
-  /** @var string */
-  protected $fileName = __DIR__ . '/../../setting.json';
-
   public function __construct()
   {
+    $this->fileName = base_path('theme-setting.json');
   }
 
   public function __get($name)

@@ -2,8 +2,6 @@
 
 namespace OpenSynergic\ThemesManager\Concerns\Theme;
 
-use OpenSynergic\Hooks\Facades\Hook;
-
 trait CanInitialize
 {
   public function init(): void
@@ -12,10 +10,18 @@ trait CanInitialize
 
   final public function initialize(): void
   {
-    Hook::call('theme.beforeInit', $this);
+    $this->beforeInit();
 
     $this->init();
 
-    Hook::call('theme.afterInit', $this);
+    $this->afterInit();
+  }
+
+  protected function beforeInit(): void
+  {
+  }
+
+  protected function afterInit(): void
+  {
   }
 }

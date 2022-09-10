@@ -22,6 +22,9 @@ trait HasParent
    */
   public function getParent(): null|Theme
   {
+    if (!$this->hasParent()) {
+      return null;
+    }
     return Themes::get($this->parent);
   }
 }

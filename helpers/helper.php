@@ -27,8 +27,8 @@ if (!function_exists('theme_asset')) {
    * @param  bool  $version
    * @return string
    */
-  function theme_asset(string $asset, bool $version = true)
+  function theme_asset(string $asset)
   {
-    return \Themes::url($asset, $version);
+    return \Themes::url($asset);
   }
 }

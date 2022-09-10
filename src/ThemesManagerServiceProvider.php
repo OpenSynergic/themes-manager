@@ -2,84 +2,53 @@
 
 namespace OpenSynergic\ThemesManager;
 
-use Exception;
-use Filament\PluginServiceProvider;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Support\Facades\Config;
-use Livewire\Livewire;
-use OpenSynergic\Hooks\Facades\Hook;
+use OpenSynergic\ThemesManager\Commands;
 use Spatie\LaravelPackageTools\Package;
-use OpenSynergic\ThemesManager\Commands\ThemesManagerCommand;
 use OpenSynergic\ThemesManager\Facades\Themes;
-use OpenSynergic\ThemesManager\Filament\Pages\Themes as PagesThemes;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class ThemesManagerServiceProvider extends PluginServiceProvider
+class ThemesManagerServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'themes-manager';
 
-    protected array $styles = [
-        'themes-manager' => __DIR__ . '/../dist/app.css',
-    ];
-
-    protected array $pages =  [
-        PagesThemes::class,
-    ];
-
-
-    public function packageConfigured(Package $package): void
+    public function configurePackage(Package $package): void
     {
         $package
+            ->name(static::$name)
             ->hasRoute('web')
             ->hasMigration('create_themes_settings')
-            ->hasCommand(ThemesManagerCommand::class);
+            ->hasCommands($this->getCommands())
+            ->hasConfigFile();
     }
 
-    protected function getPages(): array
+    protected function getCommands(): array
     {
-        if (config("themes-manager.register_pages")) {
-            return $this->pages;
+        return [
+            Commands\CacheTheme::class,
+            Commands\ClearCacheTheme::class,
+            Commands\EnableTheme::class,
+            Commands\MakeTheme::class,
+            Commands\ListTheme::class,
+        ];
+    }
+
+    public function packageBooted()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                $this->package->basePath('/../stubs') => base_path("stubs/{$this->package->shortName()}"),
+            ], "{$this->package->shortName()}-stubs");
         }
-
-
-        return [];
     }
 
     public function packageRegistered(): void
     {
-        parent::packageRegistered();
-
-        $this->app->beforeResolving('filament', function () {
-            Livewire::component(PagesThemes::getName(), PagesThemes::class);
-        });
-
         $this->app->beforeResolving('view.finder', function (): void {
-            // This is a hack to make sure the view finder is aware of the themes
             Themes::init();
         });
 
-        $this->app->singleton(ThemesManager::class, function (): ThemesManager {
+        $this->app->bind(ThemesManager::class, function (): ThemesManager {
             return new ThemesManager;
         });
-
-        Hook::register('theme.beforeInit', fn ($arguments) => $this->beforeInitTheme($arguments[0]));
-    }
-
-    protected function beforeInitTheme(Theme $theme): void
-    {
-        if ($theme->hasParent()) {
-            try {
-                $theme->getParent()->initialize();
-            } catch (\Throwable $th) {
-                throw new Exception(__('themes-manager::exception.parent_theme_not_found', [
-                    'parent' => $theme->parent,
-                ]));
-            }
-        }
-        // Register the theme locale
-        $lang = app(Translator::class);
-        $lang->addNamespace($theme->getLangNamespace(), $theme->getLangPath());
-
-        // Register the theme views
-        Config::set('view.paths', array_merge([$theme->getResourceViewPath()], Config::get('view.paths')));
     }
 }

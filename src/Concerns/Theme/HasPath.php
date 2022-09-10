@@ -2,6 +2,7 @@
 
 namespace OpenSynergic\ThemesManager\Concerns\Theme;
 
+use Illuminate\Support\Str;
 use OpenSynergic\ThemesManager\Theme;
 
 trait HasPath
@@ -35,9 +36,11 @@ trait HasPath
     return $this->getPath('lang');
   }
 
-  public function asset(string $file = null, $version = true): string
+  public function asset(string $file = null): string
   {
-    $file = $version ? $file . '?v=' . md5($this->version) : $file;
+    $hash = config('app.debug') ? Str::random() : md5($this->version);
+
+    $file = $file . '?v=' . $hash;
 
     return route('themes-manager.asset', [
       'theme' => $this->getThemeName(),

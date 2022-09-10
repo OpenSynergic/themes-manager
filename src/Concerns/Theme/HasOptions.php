@@ -46,23 +46,4 @@ trait HasOptions
         'value' => $value,
       ]);
   }
-
-  public function getOptionsFormSchema(): array
-  {
-    return [];
-  }
-
-  public function getOptionsFillForm(): array
-  {
-    return $this->getAllOptions();
-  }
-
-  public function submitOptionsForm(array $data): bool
-  {
-    foreach ($data as $key => $value) {
-      $this->setOption($key, $value);
-    }
-
-    return false;
-  }
 }
